@@ -16,8 +16,6 @@ public class Cao extends Animal implements Internavel {
         this.raca = raca;
     }
 
-    // Sobrecarga: cadastro sem idade conhecida, delega para o construtor
-    // acima com idade = 0 via super(...).
     public Cao(String codigo, String nome, String tutor, double peso, String raca) {
         super(codigo, nome, tutor, peso);
         this.raca = raca;
