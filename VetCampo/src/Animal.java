@@ -4,11 +4,6 @@
  * e as regras que são iguais para qualquer espécie: encapsulamento dos
  * atributos, validação da pesagem e o cálculo do valor da consulta com ou
  * sem plano de saúde (a regra do desconto de 20% mora aqui, uma única vez).
- *
- * Não pode ser instanciada diretamente: não existe "animal genérico" na
- * clínica, todo animal é obrigatoriamente de uma espécie concreta, por isso
- * esta classe é abstract e declara o método calcularValorConsulta() sem
- * corpo — só cada espécie sabe responder pela sua própria fórmula.
  */
 public abstract class Animal {
 
@@ -54,11 +49,6 @@ public abstract class Animal {
         return idade;
     }
 
-    /**
-     * Único ponto onde o peso pode mudar depois do cadastro (o animal é
-     * pesado a cada retorno). Só aceita o novo valor se for maior que zero;
-     * caso contrário a pesagem é recusada e o peso anterior é mantido.
-     */
     public boolean setPeso(double novoPeso) {
         if (novoPeso > 0) {
             this.peso = novoPeso;
@@ -74,26 +64,16 @@ public abstract class Animal {
 
     /**
      * Valor cheio da consulta (sem plano), calculado de acordo com a fórmula
-     * própria de cada espécie. Método abstrato: a superclasse não tem como
-     * implementá-lo sozinha.
+     * própria de cada espécie.
      */
     public abstract double calcularValorConsulta();
-
-    /**
-     * Sobrecarga do cálculo da consulta, agora considerando o plano de saúde
-     * animal. Implementada aqui, uma única vez, reaproveitando
-     * calcularValorConsulta() — assim a regra dos 20% de desconto não fica
-     * duplicada em cada espécie.
-     */
     public double calcularValorConsulta(boolean comPlano) {
         double valorCheio = calcularValorConsulta();
         return comPlano ? valorCheio * 0.8 : valorCheio;
     }
 
     /**
-     * Ficha com os dados comuns a qualquer animal. Cada subclasse sobrepõe
-     * este método para acrescentar a sua informação própria, sempre
-     * chamando super.imprimirFicha() em vez de reescrever estas linhas.
+     * Ficha com os dados comuns a qualquer animal.
      */
     public String imprimirFicha() {
         return "Código: " + codigo
